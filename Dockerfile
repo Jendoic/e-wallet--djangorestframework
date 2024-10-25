@@ -1,0 +1,21 @@
+FROM python:3.9-slim
+
+# ENVIROMENT VARIABLE
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+#WORKING DIRECTORY
+WORKDIR /app
+
+# INSTALL DEPENCIES
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# COPY THE CURRENT DIRECTORY CONTENTS INTO THE CONTAINER AT /APP
+COPY . /app/
+
+# DJANGO WILL RUN ON PORT
+EXPOSE 8000
+
+# START DJANGO SERVER
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
